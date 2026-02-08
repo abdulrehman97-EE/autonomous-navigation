@@ -1,0 +1,16 @@
+<launch>
+
+<!-- Starting rosaria driver for motors and encoders -->
+  <node name="rosaria" pkg="rosaria" type="RosAria" args="_port:=/dev/ttyUSB0">
+  <param name="publish_aria_lasers" value="True"/>
+  <remap from="rosaria/cmd_vel" to="cmd_vel"/>
+  <remap from="rosaria/pose" to="odom"/>
+  <remap from="rosaria/lms5XX_1_laserscan" to="sensor_msgs/LaserScan"/>
+  </node>
+
+  
+<!-- Starting laser tf -->
+ <node name="RosAriaLaserTf" pkg="p3dx_navigation" type="RosAriaLaserTf.py" /> 
+
+<!-- <node name="static_tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_link /laser 100" />-->
+</launch>
